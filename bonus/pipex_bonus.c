@@ -6,7 +6,7 @@
 /*   By: yohasega <yohasega@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 14:50:07 by yohasega          #+#    #+#             */
-/*   Updated: 2024/08/03 13:05:09 by yohasega         ###   ########.fr       */
+/*   Updated: 2025/03/15 18:11:28 by yohasega         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ void	execute_command(char *cmdstring, char **envp, t_pipe *data)
 	if ((*data).cmd == NULL)
 		error_exit("Error : malloc data.cmdstring");
 	if (*(*data).cmdstr == '.' || *(*data).cmdstr == '/')
-		(*data).path = ft_strdup((*data).cmd[0]);
-	else
-		(*data).path = get_path(envp, (*data).cmd[0], data);
-	if (access((*data).path, X_OK) != 0 && (*(*data).cmdstr == '.'
-			|| *(*data).cmdstr == '/'))
 	{
-		cleanup(data);
-		error_exit(strerror(2));
+		if (!access((*data).cmd[0], F_OK) && access((*data).cmd[0], X_OK))
+			error_exit(strerror(errno));
+		if (execve((*data).cmd[0], (*data).cmd, NULL) == -1)
+		{
+			cleanup(data);
+			error_exit(strerror(2));
+		}
 	}
+	(*data).path = get_path(envp, (*data).cmd[0], data);
+	if ((*data).path == NULL)
+		execve_error(data);
 	if (execve((*data).path, (*data).cmd, NULL) == -1)
 		execve_error(data);
 }

@@ -6,7 +6,7 @@
 #    By: yohasega <yohasega@student.42.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 20:37:00 by yohasega          #+#    #+#              #
-#    Updated: 2024/08/01 20:37:02 by yohasega         ###   ########.fr        #
+#    Updated: 2025/03/15 18:08:36 by yohasega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ all: $(NAME)
 $(NAME): $(M_OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(M_OBJS) $(LIBFT) -o $(NAME)
 
-bonus: $(B_OBJS) $(G_OBJS) $(LIBFT)
+bonus: fclean $(B_OBJS) $(G_OBJS) $(LIBFT)
 	@if [ ! -e $(NAME) ]; then \
 		$(CC) $(CFLAGS) $(B_OBJS) $(G_OBJS) $(LIBFT) -o $(NAME); \
 	fi
