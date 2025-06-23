@@ -124,9 +124,3 @@ make re       # 再コンパイル
 # Here_doc（ボーナス）
 ./pipex here_doc EOF "cat" "wc -l" output.txt
 ```
-
-## 作成者
-
-- **yohasega**
-- 作成日: 2024/07/16  
-- 最終更新: 2025/03/15
